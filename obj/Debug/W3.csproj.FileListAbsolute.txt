@@ -1,0 +1,12 @@
+E:\MyWork\Teradyne\Codechanellage\MyProjet\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+E:\MyWork\Teradyne\Codechanellage\MyProjet\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+E:\MyWork\Teradyne\Codechanellage\MyProjet\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+E:\MyWork\Teradyne\Codechanellage\MyProjet\ConsoleApp1\obj\Debug\W3.csprojResolveAssemblyReference.cache
+E:\MyWork\Teradyne\Codechanellage\MyProjet\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+E:\MyWork\Teradyne\Codechanellage\MyProjet\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\W3.csprojResolveAssemblyReference.cache
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\ConsoleApp1.exe
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\ConsoleApp1.pdb
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.exe.config
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.exe
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.pdb

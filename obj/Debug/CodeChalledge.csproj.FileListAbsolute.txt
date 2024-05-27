@@ -1,0 +1,6 @@
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.exe.config
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.exe
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.pdb
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\ConsoleApp1.exe
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\ConsoleApp1.pdb
+E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\CodeChalledge.csprojResolveAssemblyReference.cache

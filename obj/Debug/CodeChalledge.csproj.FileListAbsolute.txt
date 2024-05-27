@@ -4,3 +4,10 @@ E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\bin\Debug\ConsoleApp1.
 E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\ConsoleApp1.exe
 E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\ConsoleApp1.pdb
 E:\MyWork\Teradyne\Codechanellage\MyProjet\CodeChanlledge\obj\Debug\CodeChalledge.csprojResolveAssemblyReference.cache
+D:\codechanllege\CodeChalledge\bin\Debug\ConsoleApp1.exe.config
+D:\codechanllege\CodeChalledge\bin\Debug\ConsoleApp1.exe
+D:\codechanllege\CodeChalledge\bin\Debug\ConsoleApp1.pdb
+D:\codechanllege\CodeChalledge\obj\Debug\CodeChalledge.csproj.AssemblyReference.cache
+D:\codechanllege\CodeChalledge\obj\Debug\CodeChalledge.csproj.CoreCompileInputs.cache
+D:\codechanllege\CodeChalledge\obj\Debug\ConsoleApp1.exe
+D:\codechanllege\CodeChalledge\obj\Debug\ConsoleApp1.pdb

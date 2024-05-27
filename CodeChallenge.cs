@@ -514,6 +514,32 @@ namespace SEGCodeChallenge
             Console.WriteLine(result);
         }
 
+        public void Week7_2()
+        {
+            List<int> time = new List<int>();
+            List<long> distance = new List<long>();
+            long result = 1;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W6_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+            string str1 = PuzzleInput[0].Split(':')[1];
+            time.Add(Convert.ToInt32(str1.Replace(" ", "")));
+            str1 = PuzzleInput[1].Split(':')[1];
+            distance.Add(Convert.ToInt64(str1.Replace(" ", "")));
+
+            for (int i = 0; i < time.Count; i++)
+            {
+                int succ = 0;
+                for (long k = 0; k < time[i]; k++)
+                {
+                    if (k * (time[i] - k) > distance[i])
+                        succ++;
+                }
+                result *= succ;
+            }
+            Console.WriteLine(result);
+        }
+
     }
 }
 

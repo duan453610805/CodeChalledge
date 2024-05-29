@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data.SqlClient;
+using System.Threading;
 
 namespace SEGCodeChallenge
 {
@@ -488,29 +490,102 @@ namespace SEGCodeChallenge
             Console.WriteLine(result);
         }
 
+        class cardstype
+        {
+            public int id;
+            public List<int> type = new List<int>();
+            public string name;
+            public int value;
+        }
+
         public void Week7_1()
         {
-            List<int> time = new List<int>();
-            List<long> distance = new List<long>();
-            long result = 1;
+            List<cardstype> Cards = new List<cardstype>();
+            long result = 0;
             string[] PuzzleInput;
-            PuzzleInput = File.ReadAllLines("W6_PuzzleInput.txt");
+            PuzzleInput = File.ReadAllLines("W7_PuzzleInput.txt");
             //PuzzleInput = File.ReadAllLines("test.txt");
-            string str1 = PuzzleInput[0].Split(':')[1];
-            time.Add(Convert.ToInt32(str1.Replace(" ", "")));
-            str1 = PuzzleInput[1].Split(':')[1];
-            distance.Add(Convert.ToInt64(str1.Replace(" ", "")));
 
-            for (int i = 0; i < time.Count; i++)
+            for (int i = 0; i < PuzzleInput.Length; i++)
             {
-                int succ = 0;
-                for (long k = 0; k < time[i]; k++)
+                cardstype hands = new cardstype();
+
+                hands.name = PuzzleInput[i].Split(' ')[0];
+                hands.name = hands.name.Replace('A', 'E');
+                hands.name = hands.name.Replace('K', 'D');
+                hands.name = hands.name.Replace('Q', 'C');
+                hands.name = hands.name.Replace('J', 'B');
+                hands.name = hands.name.Replace('T', 'A');
+                hands.value = Convert.ToInt32(PuzzleInput[i].Split(' ')[1]);
+                string str = hands.name;
+                for (int j = 0; j < str.Length; j++)
                 {
-                    if (k * (time[i] - k) > distance[i])
-                        succ++;
+                    hands.type.Insert(0, 1);
+                    for (int k = j + 1; k < str.Length;)
+                    {
+                        if (str[j] == str[k])
+                        {
+                            hands.type[0]++;
+                            str = str.Remove(k, 1);
+                        }
+                        else
+                            k++;
+                    }
                 }
-                result *= succ;
+                hands.type.Sort((x, y) => { return y.CompareTo(x); });
+                switch (hands.type[0])
+                {
+                    case 1:  //ABCDE
+                        hands.id = 0;
+                        break;
+                    case 2:  //AABCD
+                        if (hands.type[1] == 1)
+                            hands.id = 1;
+                        else//AABBC
+                            hands.id = 2;
+                        break;  
+                    case 3: //AAABC
+                        if (hands.type[1] == 1)
+                            hands.id = 3;
+                        else//AAABB
+                            hands.id = 4;
+                        break;
+                    case 4://AAAAB
+                        hands.id = 5;
+                        break;
+                    case 5://AAAAA
+                        hands.id = 6;
+                        break;
+                    default:
+                        break;
+                }
+                Cards.Add(hands);
             }
+            //排序
+            Cards.Sort(delegate (cardstype x, cardstype y)
+            {  
+                if(x.id == y.id)
+                    if (x.name[0] == y.name[0])
+                        if (x.name[1] == y.name[1])
+                            if (x.name[2] == y.name[2])
+                                if (x.name[3] == y.name[3])
+                                    return x.name[4].CompareTo(y.name[4]);
+                                else
+                                    return x.name[3].CompareTo(y.name[3]);
+                            else
+                                return x.name[2].CompareTo(y.name[2]);
+                        else
+                            return x.name[1].CompareTo(y.name[1]);
+                    else
+                        return  x.name[0].CompareTo(y.name[0]);
+                else
+                    return x.id.CompareTo(y.id);
+            });
+            for (int i = 0; i < Cards.Count; i++)
+                Console.WriteLine(Cards[i].name);
+            for (int i = 0; i < Cards.Count; i++)
+                result += (i + 1) * Cards[i].value;
+
             Console.WriteLine(result);
         }
 

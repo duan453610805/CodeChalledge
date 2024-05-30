@@ -614,7 +614,22 @@ namespace SEGCodeChallenge
             }
             Console.WriteLine(result);
         }
-
+        class output
+        {
+            public string left;
+            public string right;
+        }
+        public void Week8_1()
+        {
+            Dictionary < string, output> MyAyyay = new Dictionary<string, output>();
+            output Myoutput = new output();
+            Myoutput.right = "aaa"; Myoutput.left = "bbb";
+            MyAyyay.Add("123", Myoutput);
+            List<string> ppp = new List<string>();
+            ppp.Add("ddd"); ppp.Add("aaa"); ppp.Add("bbb"); ppp.Add("ccc"); ppp.Add("eee");
+            int value = ppp.FindIndex(0, ppp.Count - 1, item => item == "ccc");
+            output newMyoutput = MyAyyay["123"];
+        }
     }
 }
 

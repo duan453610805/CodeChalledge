@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Data.SqlClient;
 using System.Threading;
+using System.Reflection;
 
 namespace SEGCodeChallenge
 {
@@ -693,14 +694,111 @@ namespace SEGCodeChallenge
         }
         public void Week8_1()
         {
-            Dictionary < string, output> MyAyyay = new Dictionary<string, output>();
-            output Myoutput = new output();
-            Myoutput.right = "aaa"; Myoutput.left = "bbb";
-            MyAyyay.Add("123", Myoutput);
-            List<string> ppp = new List<string>();
-            ppp.Add("ddd"); ppp.Add("aaa"); ppp.Add("bbb"); ppp.Add("ccc"); ppp.Add("eee");
-            int value = ppp.FindIndex(0, ppp.Count - 1, item => item == "ccc");
-            output newMyoutput = MyAyyay["123"];
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W8_PuzzleInput.txt");
+            // = File.ReadAllLines("test.txt");
+            Dictionary<string, output> PuzzleDictionary = new Dictionary<string, output>();
+
+            string ditect = PuzzleInput[0];
+            string buf = "";
+            for (int i = 2; i < PuzzleInput.Length; i++)
+            {
+                output Myoutput = new output();
+                buf = PuzzleInput[i].Split(' ')[0];
+                Myoutput.left = PuzzleInput[i].Split(' ')[2].Replace("(","").Replace(",", "");
+                Myoutput.right = PuzzleInput[i].Split(' ')[3].Replace(")", "");
+                PuzzleDictionary.Add(buf, Myoutput);
+            }
+            buf = "AAA";
+            int index = 0;
+            while (true)
+            {
+                output newMyoutput = PuzzleDictionary[buf];
+
+                if (ditect[index] == 'L')
+                    buf = newMyoutput.left;
+                else
+                    buf = newMyoutput.right;
+                result++;
+                index++;
+                if (index == ditect.Length) index = 0;
+                if(buf == "ZZZ")
+                    break;
+            }
+            Console.WriteLine(result);
+        }
+        public void Week8_2()
+        {
+            //把所有的A-Z都找到，求最小公倍数
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W8_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+            Dictionary<string, output> PuzzleDictionary = new Dictionary<string, output>();
+
+            string ditect = PuzzleInput[0];
+            string buf = "";
+            List<string> nodes = new List<string>();
+            List<long> output = new List<long>();
+            for (int i = 2; i < PuzzleInput.Length; i++)
+            {
+                output Myoutput = new output();
+                buf = PuzzleInput[i].Split(' ')[0];
+                Myoutput.left = PuzzleInput[i].Split(' ')[2].Replace("(", "").Replace(",", "");
+                Myoutput.right = PuzzleInput[i].Split(' ')[3].Replace(")", "");
+                PuzzleDictionary.Add(buf, Myoutput);
+                if (buf[2] == 'A')
+                    nodes.Add(buf);
+            }
+            int index = 0;
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                buf = nodes[i];
+                result = 0;
+                while (true)
+                {
+                    output newMyoutput = PuzzleDictionary[buf];
+
+                    if (ditect[index] == 'L')
+                        buf = newMyoutput.left;
+                    else
+                        buf = newMyoutput.right;
+                    result++;
+                    index++;
+                    if (index == ditect.Length) index = 0;
+                    if (buf[2] == 'Z')
+                        break;
+                }
+                output.Add(result);
+            }
+            int k = 2;
+            result = 1;
+            while (true)
+            {
+                bool flag = false;
+                for (int i = 0; i < output.Count; i++)
+                {
+                    if (output[i] % k != 0)
+                        break;
+                    if (i == output.Count - 1)
+                        flag = true;
+                }
+                if (flag == true)
+                {
+                    for (int i = 0; i < output.Count; i++)
+                        output[i] /= k;
+                    result *= k;
+                    k = 2;
+                }
+                if (k > output.Max())
+                    break;
+                k++;
+            }
+            Console.WriteLine("最大公约数："+result);
+            for (int i = 0; i < output.Count; i++)
+                result *= output[i];
+            Console.WriteLine(result);
         }
     }
 }

@@ -833,9 +833,7 @@ namespace SEGCodeChallenge
                 for (int k = input.Count-2; k >=0; k--)
                     input[k].Add(input[k + 1][input[k + 1].Count - 1] + input[k][input[k].Count - 1]);
                 result += input[0][input[0].Count - 1];
-                Console.WriteLine(result);
             }
-            
             Console.WriteLine(result);
         }
 
@@ -845,7 +843,6 @@ namespace SEGCodeChallenge
             string[] PuzzleInput;
             PuzzleInput = File.ReadAllLines("W9_PuzzleInput.txt");
             //PuzzleInput = File.ReadAllLines("test.txt");
-
             List<List<long>> inputArray = new List<List<long>>();
             for (int i = 0; i < PuzzleInput.Length; i++)
             {
@@ -872,9 +869,7 @@ namespace SEGCodeChallenge
                     input[k].Insert(0, input[k][0] - input[k + 1][0]);
 
                 result += input[0][0];
-                Console.WriteLine(result);
             }
-
             Console.WriteLine(result);
         }
     }

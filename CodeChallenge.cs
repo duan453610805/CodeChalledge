@@ -800,6 +800,83 @@ namespace SEGCodeChallenge
                 result *= output[i];
             Console.WriteLine(result);
         }
+
+        public void Week9_1()
+        {
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W9_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+
+            List<List<long>> inputArray = new List<List<long>>();
+            for (int i = 0; i < PuzzleInput.Length; i++)
+            {
+                List<long> input = new List<long>();
+                string[] buf = PuzzleInput[i].Split(' ');
+                for (int j = 0;j< buf.Length; j++)
+                    input.Add(long.Parse(buf[j]));
+                inputArray.Add(input);
+            }
+            for (int i = 0; i < inputArray.Count; i++)
+            {
+                List<List<long>> input = new List<List<long>>();
+                input.Add(inputArray[i]);
+                int j = 0;
+                while (!input[j].All(x => x == 0))
+                {
+                    List<long> output = new List<long>();
+                    for (int k = 1; k < input[j].Count; k++)
+                        output.Add(input[j][k] - input[j][k - 1]);
+                    input.Add(output);
+                    j++;
+                }
+                for (int k = input.Count-2; k >=0; k--)
+                    input[k].Add(input[k + 1][input[k + 1].Count - 1] + input[k][input[k].Count - 1]);
+                result += input[0][input[0].Count - 1];
+                Console.WriteLine(result);
+            }
+            
+            Console.WriteLine(result);
+        }
+
+        public void Week9_2()
+        {
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W9_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+
+            List<List<long>> inputArray = new List<List<long>>();
+            for (int i = 0; i < PuzzleInput.Length; i++)
+            {
+                List<long> input = new List<long>();
+                string[] buf = PuzzleInput[i].Split(' ');
+                for (int j = 0; j < buf.Length; j++)
+                    input.Add(long.Parse(buf[j]));
+                inputArray.Add(input);
+            }
+            for (int i = 0; i < inputArray.Count; i++)
+            {
+                List<List<long>> input = new List<List<long>>();
+                input.Add(inputArray[i]);
+                int j = 0;
+                while (!input[j].All(x => x == 0))
+                {
+                    List<long> output = new List<long>();
+                    for (int k = 1; k < input[j].Count; k++)
+                        output.Add(input[j][k] - input[j][k - 1]);
+                    input.Add(output);
+                    j++;
+                }
+                for (int k = input.Count - 2; k >= 0; k--)
+                    input[k].Insert(0, input[k][0] - input[k + 1][0]);
+
+                result += input[0][0];
+                Console.WriteLine(result);
+            }
+
+            Console.WriteLine(result);
+        }
     }
 }
 

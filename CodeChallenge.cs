@@ -872,6 +872,275 @@ namespace SEGCodeChallenge
             }
             Console.WriteLine(result);
         }
+
+        public void Week10_1()
+        {
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W10_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+            List<List<string>> inputArray = new List<List<string>>();
+            int[] P_X = { 0, 0, 0, 0 }; int[] P_Y = { 0, 0, 0, 0 };
+            int[] P_dir = { 0, 1, 2, 3 };  // 0---right   1---left    2---down    3---up
+            int[] buf = { 0, 0, 0, 0 };
+            string[] key = { "0","1","2","3"};
+            for (int i = 0; i < PuzzleInput.Length; i++)
+            {
+                List<string> arr = new List<string>();
+                for (int j = 0; j < PuzzleInput[i].Length; j++)
+                    arr.Add(PuzzleInput[i][j].ToString());
+                if (PuzzleInput[i].Contains("S"))
+                {
+                    P_Y[0] = i; P_Y[1] = i; P_Y[2] = i+1; P_Y[3] = i-1;
+                    P_X[3] = PuzzleInput[i].IndexOf("S", StringComparison.Ordinal);
+                    P_X[2] = P_X[3]; P_X[1] = P_X[3]-1; P_X[0] = P_X[3]+1;
+                }
+                inputArray.Add(arr);
+            }
+            int x = 0;int y = 0;int dir = 0; int flag = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                dir = P_dir[i];   flag = 0;
+                while ((x >= 0) && (x < inputArray[y].Count) && (y >= 0) && (y < inputArray.Count))
+                {
+                    if (flag == 1)
+                    {
+                        if (buf[i] > result)
+                            result = buf[i];
+                        break;
+                    }
+                    string puzzle = inputArray[P_Y[i]][P_X[i]];
+                    x = P_X[i]; y = P_Y[i];
+                    //inputArray[P_Y[i]][P_X[i]] = buf[i].ToString();
+                    switch (puzzle)
+                    {
+                        case "F":
+                            if (P_dir[i] == 3) { P_X[i]++; P_dir[i] = 0; }
+                            else if (P_dir[i] == 1) { P_Y[i]++; P_dir[i] = 2; }
+                            else { flag = 1; }
+                            break;
+                        case "J":
+                            if (P_dir[i] == 2) { P_X[i]--; P_dir[i] = 1; }
+                            else if (P_dir[i] == 0) { P_Y[i]--; P_dir[i] = 3; }
+                            else { flag = 1; }
+                            break;
+                        case "L":
+                            if (P_dir[i] == 2) { P_X[i]++; P_dir[i] = 0; }
+                            else if (P_dir[i] == 1) { P_Y[i]--; P_dir[i] = 3; }
+                            else { flag = 1; }
+                            break;
+                        case "7":
+                            if (P_dir[i] == 3) { P_X[i]--; P_dir[i] = 1; }
+                            else if (P_dir[i] == 0) { P_Y[i]++; P_dir[i] = 2; }
+                            else { flag = 1; }
+                            break;
+                        case "|":
+                            if (P_dir[i] == 3) { P_Y[i]--; P_dir[i] = 3; }
+                            else if (P_dir[i] == 2) { P_Y[i]++; P_dir[i] = 2; }
+                            else { flag = 1; }
+                            break;
+                        case "-":
+                            if (P_dir[i] == 1) { P_X[i]--; P_dir[i] = 1; }
+                            else if (P_dir[i] == 0) { P_X[i]++; P_dir[i] = 0; }
+                            else { flag = 1; }
+                            break;
+                        case "S":
+                            flag = 1;
+                            break;
+                        default:
+                            flag = 1;
+                            break;
+                    }
+                    if (flag == 1)
+                        continue;
+                    inputArray[y][x] = (buf[i] * 10).ToString();
+                    buf[i]++;
+                }
+            }
+            //for (int i = 0; i < inputArray.Count; i++)
+            //{
+            //    for (int j = 0; j < inputArray[i].Count; j++)
+            //    {
+            //        Console.Write(inputArray[i][j] + " ");
+            //    }
+            //    Console.WriteLine();
+            //}
+            Console.WriteLine((result + 1) / 2);
+        }
+
+        public void Week10_2()
+        {
+            //思路：如何区分是不是在环内：一个左必定对应一个右，一个上必定对应一个下
+            //如果在环内“一侧的上下或左右的数量一定不相等。相等则不在环内
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W10_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+            List<List<string>> inputArray = new List<List<string>>();
+            int[] P_X = { 0, 0, 0, 0 }; int[] P_Y = { 0, 0, 0, 0 };
+            int[] P_dir = { 0, 1, 2, 3 };  // 0---right   1---left    2---down    3---up
+            int[] buf = { 0, 0, 0, 0 };
+            string[] key = { "→", "←", "↓", "↑" };
+            for (int i = 0; i < PuzzleInput.Length; i++)
+            {
+                List<string> arr = new List<string>();
+                for (int j = 0; j < PuzzleInput[i].Length; j++)
+                    arr.Add(PuzzleInput[i][j].ToString());
+                if (PuzzleInput[i].Contains("S"))
+                {
+                    P_Y[0] = i; P_Y[1] = i; P_Y[2] = i + 1; P_Y[3] = i - 1;
+                    P_X[3] = PuzzleInput[i].IndexOf("S", StringComparison.Ordinal);
+                    P_X[2] = P_X[3]; P_X[1] = P_X[3] - 1; P_X[0] = P_X[3] + 1;
+                }
+                inputArray.Add(arr);
+            }
+            //先找到环，环的终点是“S”，并把环处理成箭头
+            int x = 0; int y = 0; string dir = ""; int flag = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                flag = 0;
+                while ((y >= 0) && (x >= 0) && (x < inputArray[y].Count) &&  (y < inputArray.Count))
+                {
+                    if (flag == 1)
+                    {
+                        if (buf[i] > result)
+                            result = buf[i];
+                        break;
+                    }
+                    string puzzle = inputArray[P_Y[i]][P_X[i]];
+                    x = P_X[i]; y = P_Y[i];
+                    switch (puzzle)
+                    {
+                        case "F":
+                            if (P_dir[i] == 3) { P_X[i]++; P_dir[i] = 0; dir = "↑→"; }
+                            else if (P_dir[i] == 1) { P_Y[i]++; P_dir[i] = 2; dir = "↓←"; }
+                            else { flag = 1; }
+                            break;
+                        case "J":
+                            if (P_dir[i] == 2) { P_X[i]--; P_dir[i] = 1; dir = "←↓"; }
+                            else if (P_dir[i] == 0) { P_Y[i]--; P_dir[i] = 3; dir = "→↑"; }
+                            else { flag = 1; }
+                            break;
+                        case "L":
+                            if (P_dir[i] == 2) { P_X[i]++; P_dir[i] = 0; dir = "↓→"; }
+                            else if (P_dir[i] == 1) { P_Y[i]--; P_dir[i] = 3; dir = "↑←"; }
+                            else { flag = 1; }
+                            break;
+                        case "7":
+                            if (P_dir[i] == 3) { P_X[i]--; P_dir[i] = 1; dir = "←↑"; }
+                            else if (P_dir[i] == 0) { P_Y[i]++; P_dir[i] = 2; dir = "→↓"; }
+                            else { flag = 1; }
+                            break;
+                        case "|":
+                            if (P_dir[i] == 3) { P_Y[i]--; P_dir[i] = 3; dir = "↑↑"; }
+                            else if (P_dir[i] == 2) { P_Y[i]++; P_dir[i] = 2; dir = "↓↓"; }
+                            else { flag = 1; }
+                            break;
+                        case "-":
+                            if (P_dir[i] == 1) { P_X[i]--; P_dir[i] = 1; dir = "←←"; }
+                            else if (P_dir[i] == 0) { P_X[i]++; P_dir[i] = 0; dir = "→→"; }
+                            else { flag = 1; }
+                            break;
+                        case "S":
+                            switch (i)
+                            {
+                                case 0:
+                                    if (P_dir[i] == 0) dir = "→→";
+                                    else if (P_dir[i] == 2) dir = "↓→";
+                                    else if (P_dir[i] == 3) dir = "↑→";
+                                    else dir = "S";
+                                    break;
+                                case 1:
+                                    if (P_dir[i] == 1) dir = "←←";
+                                    else if (P_dir[i] == 2) dir = "↓←";
+                                    else if (P_dir[i] == 3) dir = "↑←";
+                                    else dir = "S";
+                                    break;
+                                case 2:
+                                    if (P_dir[i] == 0) dir = "→↓";
+                                    else if (P_dir[i] == 1) dir = "←↓";
+                                    else if (P_dir[i] == 2) dir = "↓↓";
+                                    else dir = "S";
+                                    break;
+                                case 3:
+                                    if (P_dir[i] == 0) dir = "→↑";
+                                    else if (P_dir[i] == 1) dir = "←↑";
+                                    else if (P_dir[i] == 2) dir = "↑↑";
+                                    else dir = "S";
+                                    break;
+                                default: break;
+                            }
+                            buf[i]++;
+                            inputArray[y][x] = dir;
+                            flag = 1;
+                            break;
+                        default:
+                            flag = 1;
+                            break;
+                    }
+                    if (flag == 1)
+                        continue;
+                    buf[i]++;
+                    inputArray[y][x] = dir;
+                }
+            }
+            //确定字符在环内还是环外：只需要确认上方和左侧就可以了
+            int buf_result1 = 0; int buf_result2 = 0; result = 0;
+            for (int i = 0; i < inputArray.Count; i++)
+            {
+                for (int j = 0; j < inputArray[i].Count; j++)
+                {
+                    buf_result1 = 0;  buf_result2 = 0;
+                    if ((i == 0) || (j == 0)) { inputArray[i][j] = "o"; continue; }
+                    if (inputArray[i][j].Length > 1) continue;
+                    if ((inputArray[i - 1][j] == "o") || (inputArray[i][j - 1] == "o")) { inputArray[i][j] = "o"; continue; }
+                    for (int k = i - 1; k >= 0; k--)
+                    {//up
+                        if (inputArray[k][j].Contains("←"))
+                            buf_result1++;
+                        if (inputArray[k][j].Contains("←←"))
+                            buf_result1++;
+                        if (inputArray[k][j].Contains("→"))
+                            buf_result2++;
+                        if (inputArray[k][j].Contains("→→"))
+                            buf_result2++;
+                    }
+                    if (buf_result1 != buf_result2)
+                    {
+                        result++;
+                        inputArray[i][j] = "i";
+                        continue;
+                    }
+                    for (int k = j - 1; k >= 0; k--)
+                    {//left
+                        if (inputArray[i][k].Contains("↑"))
+                            buf_result1++;
+                        if (inputArray[i][k].Contains("↑↑"))
+                            buf_result1++;
+                        if (inputArray[i][k].Contains("↓"))
+                            buf_result2++;
+                        if (inputArray[i][k].Contains("↓↓"))
+                            buf_result2++;
+                    }
+                    if (buf_result1 != buf_result2)
+                    {
+                        result++;
+                        inputArray[i][j] = "i";
+                        continue;
+                    }
+                    inputArray[i][j] = "o";
+                }
+            }
+            //for (int i = 0; i < inputArray.Count; i++)
+            //{
+            //    for (int j = 0; j < inputArray[i].Count; j++)
+            //    {
+            //        Console.Write(inputArray[i][j] + ";");
+            //    }
+            //    Console.WriteLine();
+            //}
+            Console.WriteLine((result));
+        }
     }
 }
 

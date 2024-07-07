@@ -14,7 +14,7 @@ namespace MyCodeChallenge
         {
             CodeChallenge Code = new CodeChallenge();
             bool flag = true;
-            Code.Week10_2();
+            Code.Week11_2();
             while (flag)
             {
                 Console.WriteLine("Please Input your Puzzle Number(1-25),and press enter");
@@ -53,6 +53,10 @@ namespace MyCodeChallenge
                     case "10":
                         Code.Week10_1();
                         Code.Week10_2();
+                        break;
+                    case "11":
+                        Code.Week11_1();
+                        Code.Week11_2();
                         break;
                     case " ":
                         flag = false;

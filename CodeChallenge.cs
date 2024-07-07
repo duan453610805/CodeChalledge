@@ -1141,6 +1141,102 @@ namespace SEGCodeChallenge
             //}
             Console.WriteLine((result));
         }
+
+        public void Week11_1()
+        {
+            //横向压扁和纵向压扁
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W11_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+            List<List<string>> inputArray = new List<List<string>>();
+            int[] inputLine = new int[PuzzleInput.Length];
+            int[] inputRow = new int[PuzzleInput[0].Length];
+            for (int i = 0; i < PuzzleInput.Length; i++)
+            {
+                List<string> arr = new List<string>();
+                for (int j = 0; j < PuzzleInput[i].Length; j++)
+                {
+                    arr.Add(PuzzleInput[i][j].ToString());
+                    if (PuzzleInput[i][j] == '#')
+                    {
+                        inputLine[i]++;inputRow[j]++;
+                    }
+                }
+                inputArray.Add(arr);
+            }
+            int flag_Nop = 0;
+            result = 0;
+            for (int i = 0; i < inputLine.Length-1; i++)
+            {
+                flag_Nop=0;
+                if (inputLine[i] == 0) continue;
+                for (int j = i + 1; j < inputLine.Length; j++)
+                {
+                    if (inputLine[j] == 0) { flag_Nop++; }
+                    result += (j - i + flag_Nop) * inputLine[i] * inputLine[j];
+                }
+            }
+            for (int i = 0; i < inputRow.Length-1; i++)
+            {
+                flag_Nop = 0;
+                if (inputRow[i] == 0) continue;
+                for (int j = i + 1; j < inputRow.Length; j++)
+                {
+                    if (inputRow[j] == 0) { flag_Nop++; }
+                    result += (j - i + flag_Nop ) * inputRow[i] * inputRow[j];
+                }
+            }
+            Console.WriteLine((result));
+        }
+
+        public void Week11_2()
+        {
+            //横向压扁和纵向压扁
+            long result = 0;
+            string[] PuzzleInput;
+            PuzzleInput = File.ReadAllLines("W11_PuzzleInput.txt");
+            //PuzzleInput = File.ReadAllLines("test.txt");
+            List<List<string>> inputArray = new List<List<string>>();
+            int[] inputLine = new int[PuzzleInput.Length];
+            int[] inputRow = new int[PuzzleInput[0].Length];
+            for (int i = 0; i < PuzzleInput.Length; i++)
+            {
+                List<string> arr = new List<string>();
+                for (int j = 0; j < PuzzleInput[i].Length; j++)
+                {
+                    arr.Add(PuzzleInput[i][j].ToString());
+                    if (PuzzleInput[i][j] == '#')
+                    {
+                        inputLine[i]++; inputRow[j]++;
+                    }
+                }
+                inputArray.Add(arr);
+            }
+            int flag_Nop = 0;
+            result = 0;
+            for (int i = 0; i < inputLine.Length - 1; i++)
+            {
+                flag_Nop = 0;
+                if (inputLine[i] == 0) continue;
+                for (int j = i + 1; j < inputLine.Length; j++)
+                {
+                    if (inputLine[j] == 0) { flag_Nop++; }
+                    result += (j - i + flag_Nop * 999999) * inputLine[i] * inputLine[j];
+                }
+            }
+            for (int i = 0; i < inputRow.Length - 1; i++)
+            {
+                flag_Nop = 0;
+                if (inputRow[i] == 0) continue;
+                for (int j = i + 1; j < inputRow.Length; j++)
+                {
+                    if (inputRow[j] == 0) { flag_Nop++; }
+                    result += (j - i + flag_Nop * 999999) * inputRow[i] * inputRow[j];
+                }
+            }
+            Console.WriteLine((result));
+        }
     }
 }
 
